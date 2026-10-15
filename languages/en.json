@@ -1,0 +1,9 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "Silence Game",
+    "NSMicrophoneUsageDescription": "The owl listens to the noise level to know who breaks the silence. Nothing is recorded or saved."
+  },
+  "android": {
+    "app_name": "Silence Game"
+  }
+}

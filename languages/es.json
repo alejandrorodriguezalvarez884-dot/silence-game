@@ -1,0 +1,9 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "Juego del Silencio",
+    "NSMicrophoneUsageDescription": "El búho escucha el nivel de ruido para saber quién rompe el silencio. No se graba ni se guarda nada."
+  },
+  "android": {
+    "app_name": "Juego del Silencio"
+  }
+}
