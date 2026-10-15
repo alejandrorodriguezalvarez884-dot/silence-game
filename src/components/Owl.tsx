@@ -164,6 +164,7 @@ function Snore({ size }: { size: number }) {
         return (
           <Animated.Text
             key={i}
+            allowFontScaling={false}
             style={[
               styles.z,
               {

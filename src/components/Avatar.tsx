@@ -12,7 +12,7 @@ export function Avatar({ player, size = 36, faded = false }: { player: Player; s
         faded && styles.faded,
       ]}
     >
-      <Text style={[styles.initial, { fontSize: size * 0.48 }]}>{player.name.charAt(0).toUpperCase()}</Text>
+      <Text allowFontScaling={false} style={[styles.initial, { fontSize: size * 0.48 }]}>{player.name.charAt(0).toUpperCase()}</Text>
     </View>
   );
 }

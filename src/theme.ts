@@ -23,6 +23,13 @@ export const fonts = {
   bold: 'Fredoka_700Bold',
 };
 
+// Dynamic Type: text grows with the system text size up to these factors, so the fixed game layout
+// (ring, clock, buttons) still fits on screen at the largest accessibility sizes.
+export const textScale = {
+  display: 1.2,
+  body: 1.5,
+};
+
 // One color per player seat, in the order they are added.
 export const playerColors = ['#F472B6', '#60A5FA', '#34D399', '#FBBF24', '#A78BFA', '#FB923C', '#22D3EE', '#F87171'];
 
