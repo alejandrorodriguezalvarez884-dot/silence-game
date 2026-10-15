@@ -29,8 +29,11 @@ Los valores están en `src/game.ts` (`SENSITIVITY`) y `src/useNoiseMonitor.ts`. 
 npm install
 npx expo start          # escanea el QR con Expo Go
 npx expo start --web    # vista rápida en el navegador (pide el micrófono)
-npx tsc --noEmit && npx expo lint
+npx tsc --noEmit && npx expo lint && npm test
+npx expo run:ios        # build nativa en el simulador (necesita Xcode y CocoaPods)
 ```
+
+Los tests (`src/__tests__/`, Jest con `jest-expo`) cubren las reglas de la partida con el micrófono simulado, la pantalla de ajustes, el guardado y los textos.
 
 ## Estructura
 
@@ -43,8 +46,12 @@ npx tsc --noEmit && npx expo lint
 - `languages/`: nombre de la app y texto del permiso de micrófono traducidos
 - `scripts/generate-sounds.mjs`: genera `assets/sounds/eliminated.wav` y `win.wav`
 - `scripts/generate-icons.mjs`: genera el icono, el splash y el favicon
-- `docs/privacy.html`: política de privacidad (para GitHub Pages)
+- `plugins/withSceneLifecycle.js`: adopta el ciclo de vida UIScene, obligatorio con el SDK de iOS 27 (sin él la app se cierra al abrir)
+- `docs/`: web de la app para GitHub Pages (inicio, ayuda y política de privacidad)
+- `fastlane/metadata/`: ficha de App Store en español e inglés; `fastlane/screenshots/`: capturas de 6,9" y 6,5"
 
 ## Publicación
 
 Las builds se compilan en la nube con EAS (`npx eas-cli@latest build`), así que no hace falta un Mac para iOS. El identificador del paquete es `com.alejandrorodriguez.silencegame`. Para venderla a 2 € basta con ponerle precio en App Store Connect y Google Play Console; la app no necesita compras dentro de la app.
+
+Los pasos que faltan para la App Store están en [docs/appstore.md](docs/appstore.md).
