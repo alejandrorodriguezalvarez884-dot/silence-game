@@ -15,7 +15,7 @@ Todo lo que se puede preparar sin la cuenta de Apple ya está en el repo. Lo que
 | Ciclo de vida UIScene, obligatorio con el SDK de iOS 27 | `plugins/withSceneLifecycle.js` |
 | Ficha en inglés y español: nombre, subtítulo, descripción, keywords, texto promocional, novedades, URLs | `fastlane/metadata/` |
 | Notas para el revisor de Apple | `fastlane/metadata/review_information/notes.txt` |
-| Capturas 6,9" (1320×2868) y 6,5" (1284×2778) en los dos idiomas | `fastlane/screenshots/` |
+| Capturas 6,9" (1320×2868), 6,5" (1284×2778) y 6,3" (1206×2622) en los dos idiomas | `fastlane/screenshots/` |
 | Web de ayuda y política de privacidad | `docs/` (para GitHub Pages) |
 
 ## Lo que tienes que hacer tú
