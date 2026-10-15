@@ -52,6 +52,6 @@ Los tests (`src/__tests__/`, Jest con `jest-expo`) cubren las reglas de la parti
 
 ## Publicación
 
-Las builds se compilan en la nube con EAS (`npx eas-cli@latest build`), así que no hace falta un Mac para iOS. El identificador del paquete es `com.alejandrorodriguez.silencegame`. Para venderla a 2 € basta con ponerle precio en App Store Connect y Google Play Console; la app no necesita compras dentro de la app.
+Las builds se compilan en la nube con EAS (`npx eas-cli@latest build`), así que no hace falta un Mac para iOS. El identificador del paquete es `com.alejandrorodriguez.silencegame`. La app es gratuita, sin anuncios ni compras dentro de la app.
 
 Los pasos que faltan para la App Store están en [docs/appstore.md](docs/appstore.md).

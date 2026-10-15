@@ -20,7 +20,7 @@ Todo lo que se puede preparar sin la cuenta de Apple ya está en el repo. Lo que
 
 ## Lo que tienes que hacer tú
 
-1. **Cuenta de desarrollador.** Apple Developer Program (99 €/año) con tu Apple ID. Para cobrar 2 € también tienes que firmar el acuerdo de apps de pago y rellenar los datos bancarios y fiscales en App Store Connect → Acuerdos, impuestos y banca.
+1. **Cuenta de desarrollador.** Apple Developer Program (99 €/año) con tu Apple ID.La app es gratuita, así que no hace falta el acuerdo de apps de pago ni datos bancarios.
 
 2. **Publicar la web.** En GitHub → Settings → Pages del repo: *Deploy from a branch*, rama `main`, carpeta `/docs`. Comprueba que abren:
    - https://alejandrorodriguezalvarez884-dot.github.io/silence-game/privacy.html
@@ -45,7 +45,7 @@ Todo lo que se puede preparar sin la cuenta de Apple ya está en el repo. Lo que
 
 5. **Ficha.** Copia los textos de `fastlane/metadata/` y sube las capturas de `fastlane/screenshots/` (o, con fastlane instalado, `fastlane deliver` desde la raíz del repo).
    - Categoría: Juegos → Familia (secundaria: Entretenimiento).
-   - Precio: 1,99 € (o el tramo que quieras).
+   - Precio: Gratis, disponible en todos los países.
    - Clasificación por edades: responde «No» a todo → 4+.
    - Privacidad de la app: **No se recogen datos**.
    - Notas de revisión: pega `review_information/notes.txt`. No hace falta cuenta de prueba.
