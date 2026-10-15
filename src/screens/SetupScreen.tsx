@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,7 +17,7 @@ import {
   type Settings,
 } from '../game';
 import { t } from '../i18n';
-import { colors, fonts, playerColors } from '../theme';
+import { colors, fonts, playerColors, textScale } from '../theme';
 
 type Props = {
   settings: Settings;
@@ -30,6 +30,7 @@ const SENSITIVITIES: Sensitivity[] = ['low', 'medium', 'high'];
 
 export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
   const [name, setName] = useState('');
+  const input = useRef<TextInput>(null);
   const { players } = settings;
   const trimmed = name.trim();
   const canAdd = trimmed.length > 0 && players.length < MAX_PLAYERS;
@@ -40,6 +41,9 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
     const used = new Set(players.map((p) => p.color));
     const color = playerColors.find((c) => !used.has(c)) ?? playerColors[players.length % playerColors.length];
     onChange({ ...settings, players: [...players, { id: `${Date.now()}`, name: trimmed, color }] });
+    // Clear the native field too: if the next name is typed right away, a state-only reset can lose
+    // the race with the keyboard and the new name gets appended to the old one.
+    input.current?.clear();
     setName('');
   };
 
@@ -59,14 +63,16 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
           <View style={styles.hero}>
             <View style={styles.moon} />
             <Owl size={130} mood="sleep" />
-            <Text style={styles.title}>{t.title}</Text>
-            <Text style={styles.subtitle}>{t.subtitle}</Text>
+            <Text maxFontSizeMultiplier={textScale.display} style={styles.title}>{t.title}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.subtitle}>{t.subtitle}</Text>
           </View>
 
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>{t.playersTitle}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.cardTitle}>{t.playersTitle}</Text>
             <View style={styles.inputRow}>
               <TextInput
+                ref={input}
+                maxFontSizeMultiplier={textScale.body}
                 value={name}
                 onChangeText={setName}
                 onSubmitEditing={addPlayer}
@@ -77,6 +83,8 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
                 submitBehavior="submit"
                 autoCapitalize="words"
                 autoCorrect={false}
+                autoComplete="off"
+                textContentType="none"
                 editable={players.length < MAX_PLAYERS}
                 style={styles.input}
               />
@@ -86,7 +94,7 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
                 accessibilityRole="button"
                 style={[styles.addButton, !canAdd && styles.addDisabled]}
               >
-                <Text style={styles.addLabel}>{t.add}</Text>
+                <Text maxFontSizeMultiplier={textScale.body} style={styles.addLabel}>{t.add}</Text>
               </Pressable>
             </View>
             {players.length > 0 && (
@@ -100,17 +108,17 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
                     style={[styles.chip, { borderColor: player.color }]}
                   >
                     <Avatar player={player} size={28} />
-                    <Text style={styles.chipName}>{player.name}</Text>
-                    <Text style={styles.chipRemove}>×</Text>
+                    <Text maxFontSizeMultiplier={textScale.body} style={styles.chipName}>{player.name}</Text>
+                    <Text maxFontSizeMultiplier={textScale.body} style={styles.chipRemove}>×</Text>
                   </Pressable>
                 ))}
               </View>
             )}
-            <Text style={styles.hint}>{isElimination(players) ? t.eliminationHint : t.teamHint}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.hint}>{isElimination(players) ? t.eliminationHint : t.teamHint}</Text>
           </View>
 
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>{t.durationTitle}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.cardTitle}>{t.durationTitle}</Text>
             <Segmented
               options={MINUTE_OPTIONS.map((m) => ({ value: m, label: t.minutes(m) }))}
               value={settings.minutes}
@@ -119,7 +127,7 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
           </View>
 
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>{t.sensitivityTitle}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.cardTitle}>{t.sensitivityTitle}</Text>
             <Segmented
               options={SENSITIVITIES.map((s) => ({ value: s, ...t.sensitivity[s] }))}
               value={settings.sensitivity}
@@ -127,7 +135,7 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
             />
             {isElimination(players) && (
               <View style={styles.switchRow}>
-                <Text style={styles.switchLabel}>{t.speakNames}</Text>
+                <Text maxFontSizeMultiplier={textScale.body} style={styles.switchLabel}>{t.speakNames}</Text>
                 <Switch
                   value={settings.speakNames}
                   onValueChange={(speakNames) => onChange({ ...settings, speakNames })}
@@ -138,7 +146,7 @@ export function SetupScreen({ settings, recordMs, onChange, onStart }: Props) {
             )}
           </View>
 
-          {recordMs > 0 && <Text style={styles.record}>{t.record(formatTime(recordMs))}</Text>}
+          {recordMs > 0 && <Text maxFontSizeMultiplier={textScale.body} style={styles.record}>{t.record(formatTime(recordMs))}</Text>}
         </ScrollView>
 
         <View style={styles.footer}>

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 
-import { colors, fonts } from '../theme';
+import { colors, fonts, textScale } from '../theme';
 
 type Option<T> = { value: T; label: string; caption?: string };
 
@@ -28,9 +28,9 @@ export function Segmented<T extends string | number>({ options, value, onChange 
             accessibilityState={{ selected }}
             style={[styles.option, selected && styles.selected]}
           >
-            <Text style={[styles.label, selected && styles.selectedLabel]}>{option.label}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={[styles.label, selected && styles.selectedLabel]}>{option.label}</Text>
             {option.caption && (
-              <Text style={[styles.caption, selected && styles.selectedCaption]}>{option.caption}</Text>
+              <Text maxFontSizeMultiplier={textScale.body} style={[styles.caption, selected && styles.selectedCaption]}>{option.caption}</Text>
             )}
           </Pressable>
         );

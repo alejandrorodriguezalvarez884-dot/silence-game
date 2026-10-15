@@ -27,6 +27,7 @@ type Strings = {
   pause: string;
   micDenied: string;
   micError: string;
+  openSettings: string;
   back: string;
   caughtTitle: string;
   whoWasIt: string;
@@ -79,6 +80,7 @@ const es: Strings = {
   pause: 'Pausa',
   micDenied: 'El búho necesita el micrófono para oír el ruido. Actívalo en los ajustes del teléfono.',
   micError: 'No se pudo usar el micrófono.',
+  openSettings: 'Abrir Ajustes',
   back: 'Volver',
   caughtTitle: '¡Ruido!',
   whoWasIt: '¿Quién ha sido?',
@@ -128,6 +130,7 @@ const en: Strings = {
   pause: 'Pause',
   micDenied: 'The owl needs the microphone to hear noise. Turn it on in your phone settings.',
   micError: 'Could not use the microphone.',
+  openSettings: 'Open Settings',
   back: 'Back',
   caughtTitle: 'Noise!',
   whoWasIt: 'Who was it?',

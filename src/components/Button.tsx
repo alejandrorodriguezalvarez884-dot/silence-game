@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from 'rea
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { colors, fonts } from '../theme';
+import { colors, fonts, textScale } from '../theme';
 
 type Props = {
   label: string;
@@ -32,7 +32,7 @@ export function Button({ label, onPress, variant = 'primary', color, style }: Pr
           style,
         ]}
       >
-        <Text style={[styles.label, styles.secondaryLabel]}>{label}</Text>
+        <Text maxFontSizeMultiplier={textScale.body} style={[styles.label, styles.secondaryLabel]}>{label}</Text>
       </Pressable>
     );
   }
@@ -49,7 +49,7 @@ export function Button({ label, onPress, variant = 'primary', color, style }: Pr
         end={{ x: 1, y: 1 }}
         style={styles.base}
       >
-        <Text style={[styles.label, styles.primaryLabel]}>{label}</Text>
+        <Text maxFontSizeMultiplier={textScale.body} style={[styles.label, styles.primaryLabel]}>{label}</Text>
       </LinearGradient>
     </Pressable>
   );

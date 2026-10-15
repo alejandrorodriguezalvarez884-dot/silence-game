@@ -139,11 +139,13 @@ export function useSilenceGame(settings: Settings, recordMs: number, onRecord: (
     setPhase('paused');
   }, [bank, phase, stopMonitor]);
 
-  // The microphone stops in the background, so leaving the app pauses the game.
+  // The microphone stops in the background, so leaving the app pauses the game. 'inactive' is not
+  // enough: the microphone permission prompt, Control Center or a notification only make the app
+  // inactive while it keeps listening, and pausing then would stop the very first game.
   useEffect(() => {
     if (phase !== 'playing' && phase !== 'countdown') return;
     const sub = AppState.addEventListener('change', (state) => {
-      if (state !== 'active') pause();
+      if (state === 'background') pause();
     });
     return () => sub.remove();
   }, [pause, phase]);

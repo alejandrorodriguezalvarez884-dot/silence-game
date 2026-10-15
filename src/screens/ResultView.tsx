@@ -6,7 +6,7 @@ import { Button } from '../components/Button';
 import { Owl } from '../components/Owl';
 import { formatTime } from '../game';
 import { t } from '../i18n';
-import { colors, fonts } from '../theme';
+import { colors, fonts, textScale } from '../theme';
 import type { Outcome } from '../useSilenceGame';
 
 type Props = {
@@ -35,11 +35,11 @@ export function ResultView({ outcome, elimination, onPlayAgain, onSettings }: Pr
             ))}
           </View>
         )}
-        <Text style={[styles.headline, lost && { color: colors.danger }]}>{headline}</Text>
-        <Text style={styles.detail}>{detail}</Text>
+        <Text maxFontSizeMultiplier={textScale.display} style={[styles.headline, lost && { color: colors.danger }]}>{headline}</Text>
+        <Text maxFontSizeMultiplier={textScale.body} style={styles.detail}>{detail}</Text>
         {outcome.newRecord && (
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>★ {t.newRecord}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.badgeText}>★ {t.newRecord}</Text>
           </View>
         )}
       </View>

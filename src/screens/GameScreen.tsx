@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Avatar } from '../components/Avatar';
@@ -7,7 +7,7 @@ import { NoiseRing } from '../components/NoiseRing';
 import { Owl } from '../components/Owl';
 import { formatTime, type Settings } from '../game';
 import { t } from '../i18n';
-import { colors, fonts } from '../theme';
+import { colors, fonts, textScale } from '../theme';
 import { useSilenceGame } from '../useSilenceGame';
 import { ResultView } from './ResultView';
 
@@ -28,7 +28,10 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
     return (
       <SafeAreaView style={[styles.safe, styles.centered]}>
         <Owl size={140} mood="sleep" />
-        <Text style={styles.message}>{game.micProblem === 'denied' ? t.micDenied : t.micError}</Text>
+        <Text maxFontSizeMultiplier={textScale.body} style={styles.message}>{game.micProblem === 'denied' ? t.micDenied : t.micError}</Text>
+        {game.micProblem === 'denied' && (
+          <Button label={t.openSettings} onPress={() => Linking.openSettings().catch(() => {})} style={styles.wide} />
+        )}
         <Button label={t.back} onPress={onExit} variant="secondary" style={styles.wide} />
       </SafeAreaView>
     );
@@ -50,8 +53,8 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
       <SafeAreaView style={styles.safe}>
         <ScrollView contentContainerStyle={styles.panel}>
           <Owl size={150} mood="caught" />
-          <Text style={[styles.headline, { color: colors.danger }]}>{t.caughtTitle}</Text>
-          <Text style={styles.question}>{t.whoWasIt}</Text>
+          <Text maxFontSizeMultiplier={textScale.display} style={[styles.headline, { color: colors.danger }]}>{t.caughtTitle}</Text>
+          <Text maxFontSizeMultiplier={textScale.body} style={styles.question}>{t.whoWasIt}</Text>
           <View style={styles.culprits}>
             {game.alive.map((player) => (
               <Pressable
@@ -65,7 +68,7 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
                 ]}
               >
                 <Avatar player={player} size={44} />
-                <Text style={styles.culpritName} numberOfLines={1}>
+                <Text maxFontSizeMultiplier={textScale.body} style={styles.culpritName} numberOfLines={1}>
                   {player.name}
                 </Text>
               </Pressable>
@@ -81,8 +84,8 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
     return (
       <SafeAreaView style={[styles.safe, styles.centered]}>
         <Avatar player={game.lastOut} size={110} />
-        <Text style={styles.headline}>{t.out(game.lastOut.name)}</Text>
-        <Text style={styles.detail}>{t.playersLeft(game.alive.length)}</Text>
+        <Text maxFontSizeMultiplier={textScale.display} style={styles.headline}>{t.out(game.lastOut.name)}</Text>
+        <Text maxFontSizeMultiplier={textScale.body} style={styles.detail}>{t.playersLeft(game.alive.length)}</Text>
         <AliveRow game={game} />
         <Button label={t.continue} onPress={game.resume} style={styles.wide} />
       </SafeAreaView>
@@ -93,8 +96,8 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
     return (
       <SafeAreaView style={[styles.safe, styles.centered]}>
         <Owl size={140} mood="peek" open={0.5} />
-        <Text style={styles.headline}>{t.pausedTitle}</Text>
-        <Text style={styles.detail}>
+        <Text maxFontSizeMultiplier={textScale.display} style={styles.headline}>{t.pausedTitle}</Text>
+        <Text maxFontSizeMultiplier={textScale.body} style={styles.detail}>
           {formatTime(game.remainingMs)} {t.timeLeft}
         </Text>
         <View style={styles.buttons}>
@@ -114,11 +117,11 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
           <View style={styles.pauseBar} />
           <View style={styles.pauseBar} />
         </Pressable>
-        {game.elimination && <Text style={styles.topText}>{t.playersLeft(game.alive.length)}</Text>}
+        {game.elimination && <Text maxFontSizeMultiplier={textScale.body} style={styles.topText}>{t.playersLeft(game.alive.length)}</Text>}
       </View>
 
       <View style={styles.stage}>
-        <Text style={styles.title}>{counting ? t.countdownTitle : game.level >= 0.5 ? t.wakingTitle : t.playingTitle}</Text>
+        <Text maxFontSizeMultiplier={textScale.display} style={styles.title}>{counting ? t.countdownTitle : game.level >= 0.5 ? t.wakingTitle : t.playingTitle}</Text>
 
         <NoiseRing size={ringSize} level={counting ? 0 : game.level}>
           <Owl size={ringSize * 0.56} mood={counting || game.level < 0.25 ? 'sleep' : 'peek'} open={game.level} />
@@ -126,13 +129,13 @@ export function GameScreen({ settings, recordMs, onRecord, onPlayAgain, onExit }
 
         {counting ? (
           <View style={styles.clock}>
-            <Text style={styles.countdown}>{game.countdown}</Text>
-            <Text style={styles.clockCaption}>{t.countdownHint}</Text>
+            <Text maxFontSizeMultiplier={textScale.display} style={styles.countdown}>{game.countdown}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.clockCaption}>{t.countdownHint}</Text>
           </View>
         ) : (
           <View style={styles.clock}>
-            <Text style={styles.time}>{formatTime(game.remainingMs)}</Text>
-            <Text style={styles.clockCaption}>{t.timeLeft}</Text>
+            <Text maxFontSizeMultiplier={textScale.display} style={styles.time}>{formatTime(game.remainingMs)}</Text>
+            <Text maxFontSizeMultiplier={textScale.body} style={styles.clockCaption}>{t.timeLeft}</Text>
             <View style={styles.progressTrack}>
               <View style={[styles.progressFill, { width: `${game.progress * 100}%` }]} />
             </View>
@@ -151,7 +154,7 @@ function AliveRow({ game }: { game: ReturnType<typeof useSilenceGame> }) {
       {game.alive.map((player) => (
         <View key={player.id} style={styles.alive}>
           <Avatar player={player} size={40} />
-          <Text style={styles.aliveName} numberOfLines={1}>
+          <Text maxFontSizeMultiplier={textScale.body} style={styles.aliveName} numberOfLines={1}>
             {player.name}
           </Text>
         </View>
