@@ -20,7 +20,7 @@ Todo lo que se puede preparar sin la cuenta de Apple ya está en el repo. Lo que
 
 ## Lo que tienes que hacer tú
 
-1. **Cuenta de desarrollador.** Apple Developer Program (99 €/año) con tu Apple ID.La app es gratuita, así que no hace falta el acuerdo de apps de pago ni datos bancarios.
+1. **Cuenta de desarrollador.** Apple Developer Program (99 €/año) con tu Apple ID. La app es gratuita, así que no hace falta el acuerdo de apps de pago ni datos bancarios.
 
 2. **Publicar la web.** En GitHub → Settings → Pages del repo: *Deploy from a branch*, rama `main`, carpeta `/docs`. Comprueba que abren:
    - https://alejandrorodriguezalvarez884-dot.github.io/silence-game/privacy.html
